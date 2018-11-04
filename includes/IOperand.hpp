@@ -1,7 +1,6 @@
 #ifndef IOPERAND_HPP
 # define IOPERAND_HPP
 
-
 #include <string>
 #include <map>
 
@@ -25,7 +24,6 @@ static std::map<std::string, int> eOperandTypeConverter = { {"int8", Int8},
 class IOperand {
 
   public:
-
     virtual int             getPrecision( void ) const = 0; // Precision of the type of the instance
     virtual eOperandType    getType( void ) const = 0;      // Type of instance
 

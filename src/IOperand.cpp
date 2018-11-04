@@ -81,7 +81,6 @@ IOperand const * IOperand::createFloat(std::string const &value ) {
 
 IOperand const * IOperand::createDouble(std::string const &value ) {
 
-    std::string const dummy = "-";
     auto result = double();
     std::istringstream i (value);
 
