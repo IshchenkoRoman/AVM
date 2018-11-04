@@ -81,9 +81,23 @@ IOperand const * IOperand::createFloat(std::string const &value ) {
 
 IOperand const * IOperand::createDouble(std::string const &value ) {
 
-    double val = std::stod(value);
-    double dummy = -42;
-    if (isOverFlow<double, double>(val, dummy))
-      throw OverflowError();
-    return (new Operand<float>(val, Double));
+    std::string const dummy = "-";
+    auto result = double();
+    std::istringstream i (value);
+
+    i >> result;
+    i >> std::ws;
+
+    if (!(!i.fail() && i.eof())) {
+
+        if (value.find("-") != std::string::npos)
+            throw UnderlowError();
+        else
+            throw OverflowError();
+        return NULL;
+    }
+    else {
+        double  val = std::stod(value);
+        return (new Operand<float>(val, Double));
+    }
 }

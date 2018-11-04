@@ -22,11 +22,11 @@ Parcer::Parcer(void) {
   */
     this->_regularExpressions.reserve(6);
 
-    std::regex *reSingle = new std::regex ("(^(pop)|(dump)|(add)|(sub)|(mul)|(div)|(mod)|(print)|(help))(((\\s*;[^;](.*))|(;))\n?)?$");
+    std::regex *reSingle = new std::regex ("(((pop)|(dump)|(add)|(sub)|(mul)|(div)|(mod)|(print)|(help)))(((\\s*;[^;](.*))|(;))\n?)?$");
     std::regex *reComment = new std::regex ("(^((;[^;](.*))|(;))\n?)?$");
     std::regex *rePushAssertInt = new std::regex ("^((push )|(assert ))(((int)((8)|(16)|(32))(\\(\\-?((0)|([1-9]\\d*))\\))))(((\\s*;[^;](.*))|(;))\n?)?$");
-    std::regex *rePushAsserFloat = new std::regex ("^((push )|(assert ))(((float)|(double))(\\(\\-?((0)|((0\\.\\d*)|([1-9]\\d*\\.?\\d*)))\\)))(((;[^;](.*))|(;))\n?)?$");
-    std::regex *reExit = new std::regex ("(^(exit)(((;[^;](.*))|(;))\n?)?$)");
+    std::regex *rePushAsserFloat = new std::regex ("^((push )|(assert ))(((float)|(double))(\\(\\-?((0)|((0\\.\\d*)|([1-9]\\d*\\.?\\d*)))\\)))(((\\s*;[^;](.*))|(;))\n?)?$");
+    std::regex *reExit = new std::regex ("(^(exit)(((\\s*;[^;](.*))|(;))\n?)?$)");
     std::regex *reEnd = new std::regex ("(^(;;)$)");
 
     this->_regularExpressions[0] = reEnd;
@@ -37,7 +37,6 @@ Parcer::Parcer(void) {
     this->_regularExpressions[5] = reExit;
 
     this->_sizeRegularExpressions = 6;
-
 }
 
 Parcer::Parcer(const Parcer &cls) {

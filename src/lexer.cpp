@@ -16,15 +16,24 @@ Lexer&      Lexer::operator=(const Lexer& cls) {
     return (*this);
 }
 
+std::string             Lexer::cleanCommand(std::string &s) {
+
+    std::smatch slice;
+
+    std::regex          currentRe("((pop)|(dump)|(add)|(sub)|(mul)|(div)|(mod)|(print)|(help))");
+    std::regex_search(s, slice, currentRe);
+    std::string         cleanedString = static_cast<std::string>(slice[1]);
+
+    return (cleanedString);
+}
+
 std::pair<std::string, std::string> Lexer::createToken(std::string &s) {
 
     std::smatch slice;
-    // std::regex currentRe = *(_regularExpressions[0]);
     std::regex currentRe ("(\\w*){1}.?(\\w*)");
     std::regex_search(s, slice, currentRe);
     std::string typeToken = static_cast<std::string>(slice[2]);
 
-    // currentRe = *(_regularExpressions[1]);
     std::regex currentRe1 ("(\\(([^<>*\\d]*\\d[^<>]*)\\))");
     std::regex_search(s, slice, currentRe1);
 

@@ -14,7 +14,9 @@
 #include <iomanip>      // std::setprecision
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
-#include <cmath> 
+#include <cmath>
+
+#include "fenv.h" // double (over|under)flow
 
 enum eOperandType { Int8, Int16, Int32, Float, Double };
 static std::map<std::string, int> eOperandTypeConverter = { {"int8", Int8},
@@ -50,14 +52,14 @@ template <typename Type>
 class Operand : public IOperand {
 
 public:
-  Operand();
-  Operand(Type val, eOperandType type);
-  Operand(Operand const &);
-  virtual ~Operand();
+    Operand();
+    Operand(Type val, eOperandType type);
+    Operand(Operand const &);
+    virtual ~Operand();
 
-  IOperand const *	operator+(IOperand const & rhs) const;
-  IOperand const *	operator-(IOperand const & rhs) const;
-	IOperand const *	operator*(IOperand const & rhs) const;
+    IOperand const *	operator+(IOperand const & rhs) const;
+    IOperand const *	operator-(IOperand const & rhs) const;
+    IOperand const *	operator*(IOperand const & rhs) const;
 	IOperand const *	operator/(IOperand const & rhs) const;
 	IOperand const *	operator%(IOperand const & rhs) const;
 	bool				operator==(IOperand const & rhs) const;
@@ -65,6 +67,7 @@ public:
 	Type				getValue() const;
     eOperandType        getType(void) const;
     std::string const &	toString(void) const;
+    bool                isNumeric(std::string const &s);
 
 private:
     eOperandType        highestPrecision(IOperand const &rhs) const;

@@ -58,7 +58,7 @@ int     Wrapper::readFile(const std::string &filename, std::map<std::string, cla
                   }
                 }
                 catch (UnknowInstructionError &err) {
-      
+
                   std::cout << err.what() << std::endl;
                 }
                 if (i >= 0) {
@@ -93,7 +93,8 @@ int     Wrapper::readFile(const std::string &filename, std::map<std::string, cla
 
 int   Wrapper::execute(int i, std::string command, std::map<std::string, classFunction> *mapFunction, VM &vm) {
 
-    int flag_42;
+    std::string cleaned_command;
+    int         flag_42;
 
     flag_42 = 0;
 
@@ -102,7 +103,8 @@ int   Wrapper::execute(int i, std::string command, std::map<std::string, classFu
         if (i == 1) {
               if (getStatusExit()) {
 
-                magic m = (*mapFunction)[command];
+                cleaned_command = _lexer.cleanCommand(command);
+                magic m = (*mapFunction)[cleaned_command];
                 flag_42 = (vm.*m)();
               }
             else if (!getStatusExit() && (command.find(";;") != std::string::npos)) {
