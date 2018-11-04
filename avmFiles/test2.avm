@@ -1,0 +1,8 @@
+push float(-123)
+push int8(-123)
+push int8(123)
+add
+div
+dump
+exit
+;;
